@@ -18,7 +18,7 @@ class SlugifyServiceTest extends WebTestCase
 
     public function __construct()
     {
-        $this->slugifier = new SlugifyService();
+        $this->slugifier = new SlugifyService(new URLify());
     }
 
     public function testA()
