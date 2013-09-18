@@ -2,7 +2,7 @@
     "name": "happyr/slugify-bundle",
     "type": "symfony-bundle",
     "description": "A Symfony2 Bundle to slugify swedish texts",
-    "keywords": ["Slugify, Swedish"],
+    "keywords": ["Slugify", "Swedish"],
     "homepage": "http://developer.happyr.se",
     "license": "MIT",
     "authors": [
