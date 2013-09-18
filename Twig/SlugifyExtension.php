@@ -46,9 +46,9 @@ class SlugifyExtension extends \Twig_Extension
     /**
      * Do the actual slugify
      *
-     * @param $text
+     * @param string $text
      *
-     * @return mixed
+     * @return string
      */
     public function slugify($text)
     {

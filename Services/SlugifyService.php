@@ -50,15 +50,15 @@ class SlugifyService
      *
      * @return string
      */
-    public function filter($text, $length = 60, $language = "", $file_name = false){
-        return $this->urlify->filter($text, $length, $language, $file_name);
+    public function filter($text, $length = 60, $language = "", $fileName = false){
+        return $this->urlify->filter($text, $length, $language, $fileName);
     }
 
 
     /**
      * Alias of filter
      *
-     * @param $text
+     * @param string $text
      *
      * @return string
      */
@@ -69,7 +69,7 @@ class SlugifyService
     /**
      * Alias of downcode
      *
-     * @param $text
+     * @param string $text
      *
      * @return mixed
      */
