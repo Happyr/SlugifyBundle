@@ -16,16 +16,19 @@ use Mockery as m;
  */
 class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
 {
+    protected static $urlify;
+
+    public static function setUpBeforeClass(){
+        self::$urlify=m::mock('alias:URLify');
+    }
 
     /**
      * Test downcode
      */
     public function testDowncode()
     {
-        $urlify=m::mock('\URLify')
-            ->shouldReceive('downcode')->with('foo', 'en')->andReturn('bar')
-            ->getMock();
-        $slugifier = new SlugifyService($urlify);
+        self::$urlify->shouldReceive('downcode')->with('foo', 'en')->andReturn('bar');
+        $slugifier = new SlugifyService(self::$urlify);
 
         $result=$slugifier->downcode('foo', 'en');
 
@@ -37,11 +40,8 @@ class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilter()
     {
-        $urlify=m::mock('\URLify')
-            ->shouldReceive('filter')->with('foo', 4711, 'en', false)->andReturn('bar')
-            ->getMock();
-        $slugifier = new SlugifyService($urlify);
-
+        self::$urlify->shouldReceive('filter')->with('foo', 4711, 'en', false)->andReturn('bar');
+        $slugifier = new SlugifyService(self::$urlify);
 
         $result=$slugifier->filter('foo', 4711, 'en', false);
 
@@ -53,10 +53,9 @@ class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testTransliterate()
     {
-        $urlify=m::mock('\URLify')
-            ->shouldReceive('transliterate')->with('foo')->andReturn('bar')
-            ->getMock();
-        $slugifier = new SlugifyService($urlify);
+
+        self::$urlify->shouldReceive('transliterate')->with('foo')->andReturn('bar');
+        $slugifier = new SlugifyService(self::$urlify);
 
         $result=$slugifier->transliterate('foo');
 
@@ -68,8 +67,7 @@ class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testSlugify()
     {
-        $urlify=m::mock('\URLify');
-        $slugifier=m::mock('HappyR\SlugifyBundle\Services\SlugifyService[filter]',array($urlify));
+        $slugifier=m::mock('HappyR\SlugifyBundle\Services\SlugifyService[filter]',array(self::$urlify));
         $slugifier->shouldReceive('filter')->with('foo')->andReturn('bar');
 
         $result=$slugifier->slugify('foo');
