@@ -16,25 +16,18 @@ use Mockery as m;
  */
 class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
 {
-    private $slugifier;
-    private $urlify;
-
-    /**
-     * Before each test
-     */
-    public function setUp()
-    {
-        $this->urlify=m::mock('\URLify');
-        $this->slugifier = new SlugifyService($this->urlify);
-    }
 
     /**
      * Test downcode
      */
     public function testDowncode()
     {
-        $this->urlify->shouldReceive('downcode')->with('foo', 'en')->andReturn('bar');
-        $result=$this->slugifier->downcode('foo', 'en');
+        $urlify=m::mock('\URLify')
+            ->shouldReceive('downcode')->with('foo', 'en')->andReturn('bar')
+            ->getMock();
+        $slugifier = new SlugifyService($urlify);
+
+        $result=$slugifier->downcode('foo', 'en');
 
         $this->assertEquals('bar', $result);
     }
@@ -44,8 +37,13 @@ class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilter()
     {
-        $this->urlify->shouldReceive('filter')->with('foo', 4711, 'en', false)->andReturn('bar');
-        $result=$this->slugifier->filter('foo', 4711, 'en', false);
+        $urlify=m::mock('\URLify')
+            ->shouldReceive('filter')->with('foo', 4711, 'en', false)->andReturn('bar')
+            ->getMock();
+        $slugifier = new SlugifyService($urlify);
+
+
+        $result=$slugifier->filter('foo', 4711, 'en', false);
 
         $this->assertEquals('bar', $result);
     }
@@ -55,8 +53,12 @@ class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testTransliterate()
     {
-        $this->urlify->shouldReceive('transliterate')->with('foo')->andReturn('bar');
-        $result=$this->slugifier->transliterate('foo');
+        $urlify=m::mock('\URLify')
+            ->shouldReceive('transliterate')->with('foo')->andReturn('bar')
+            ->getMock();
+        $slugifier = new SlugifyService($urlify);
+
+        $result=$slugifier->transliterate('foo');
 
         $this->assertEquals('bar', $result);
     }
@@ -66,7 +68,8 @@ class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testSlugify()
     {
-        $slugifier=m::mock('HappyR\SlugifyBundle\Services\SlugifyService[filter]',array($this->urlify));
+        $urlify=m::mock('\URLify');
+        $slugifier=m::mock('HappyR\SlugifyBundle\Services\SlugifyService[filter]',array($urlify));
         $slugifier->shouldReceive('filter')->with('foo')->andReturn('bar');
 
         $result=$slugifier->slugify('foo');
