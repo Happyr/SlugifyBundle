@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->booleanNode('twig')->defaultTrue()->end()
+            ->booleanNode('twig')->defaultFalse()->end()
             ->end()
         ;
 
