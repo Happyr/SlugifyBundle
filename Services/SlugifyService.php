@@ -46,7 +46,7 @@ class SlugifyService
      * @param string $text
      * @param int $length
      * @param string $language
-     * @param bool $file_name
+     * @param bool $fileName
      *
      * @return string
      */
