@@ -13,7 +13,7 @@ use HappyR\SlugifyBundle\Services\SlugifyService;
  *
  *
  */
-class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
+class SlugifyTest extends \PHPUnit_Framework_TestCase
 {
     private $slugifier;
 
