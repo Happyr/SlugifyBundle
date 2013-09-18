@@ -1,0 +1,27 @@
+{
+    "name": "happyr/slugify-bundle",
+    "type": "symfony-bundle",
+    "description": "A Symfony2 Bundle to slugify swedish texts",
+    "keywords": ["Slugify, Swedish"],
+    "homepage": "http://developer.happyr.se",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias@happyrecruiting.se"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.*",
+        "jbroadway/urlify": "1.0.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "*"
+    },
+    "autoload": {
+        "psr-0": { "HappyR\\SlugifyBundle": "" }
+    },
+    "target-dir": "HappyR/SlugifyBundle"
+    
+}
