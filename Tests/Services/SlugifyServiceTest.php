@@ -18,6 +18,9 @@ class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
 {
     protected static $urlify;
 
+    /**
+     * We must do this before the URLify class is loaded. Mockery and static methods does not go hand in hand...
+     */
     public static function setUpBeforeClass(){
         self::$urlify=m::mock('alias:URLify');
     }
