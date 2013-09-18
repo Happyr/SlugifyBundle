@@ -3,7 +3,9 @@
 namespace Eastit\Darwin\CommonBundle\Tests\Util;
 
 use HappyR\SlugifyBundle\Services\SlugifyService;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+use Mockery as m;
+
 
 /**
  * Class SlugifyServiceTest
@@ -12,54 +14,65 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  *
  *
  */
-class SlugifyServiceTest extends WebTestCase
+class SlugifyServiceTest extends \PHPUnit_Framework_TestCase
 {
     private $slugifier;
+    private $urlify;
 
     /**
      * Before each test
      */
     public function setUp()
     {
-        $this->slugifier = new SlugifyService(new \URLify());
+        $this->urlify=m::mock('\URLify');
+        $this->slugifier = new SlugifyService($this->urlify);
     }
 
     /**
-     * First test
+     * Test downcode
      */
-    public function testA()
+    public function testDowncode()
     {
+        $this->urlify->shouldReceive('downcode')->with('foo', 'en')->andReturn('bar');
+        $result=$this->slugifier->downcode('foo', 'en');
 
-        $this->assertEquals('xyza',$this->slugifier->slugify('xyzå'));
+        $this->assertEquals('bar', $result);
     }
 
     /**
-     * Test capitals
+     * Test filter
      */
-    public function testCapitals()
+    public function testFilter()
     {
-        $this->assertEquals('tast',$this->slugifier->slugify('TÅST'));
-        $this->assertEquals('tast',$this->slugifier->slugify('TÄST'));
-        $this->assertEquals('tost',$this->slugifier->slugify('TÖST'));
+        $this->urlify->shouldReceive('filter')->with('foo', 4711, 'en', false)->andReturn('bar');
+        $result=$this->slugifier->filter('foo', 4711, 'en', false);
+
+        $this->assertEquals('bar', $result);
     }
 
     /**
-     * Test beginning of words
+     * Test transliterate
      */
-    public function testBeginningOfWords()
+    public function testTransliterate()
     {
-        $this->assertEquals('ast',$this->slugifier->slugify('åst'));
-        $this->assertEquals('ast',$this->slugifier->slugify('äst'));
-        $this->assertEquals('ost',$this->slugifier->slugify('öst'));
+        $this->urlify->shouldReceive('transliterate')->with('foo')->andReturn('bar');
+        $result=$this->slugifier->transliterate('foo');
+
+        $this->assertEquals('bar', $result);
     }
 
     /**
-     * And test end of words
+     * Test slugify
      */
-    public function testEndOfWords()
+    public function testSlugify()
     {
-        $this->assertEquals('tsta',$this->slugifier->slugify('tstå'));
-        $this->assertEquals('tsta',$this->slugifier->slugify('tstä'));
-        $this->assertEquals('tsto',$this->slugifier->slugify('tstö'));
+        $slugifier=m::mock('HappyR\SlugifyBundle\Services\SlugifyService[filter]',array($this->urlify));
+        $slugifier->shouldReceive('filter')->with('foo')->andReturn('bar');
+
+        $result=$slugifier->slugify('foo');
+        $this->assertEquals('bar', $result);
+
     }
+
+
 }
