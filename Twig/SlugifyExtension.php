@@ -1,6 +1,6 @@
 <?php
 
-namespace Zenstruck\SlugifyBundle\Twig;
+namespace HappyR\SlugifyBundle\Twig;
 
 use HappyR\SlugifyBundle\Services\SlugifyService;
 
