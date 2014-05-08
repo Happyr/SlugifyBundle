@@ -1,6 +1,6 @@
 <?php
 
-namespace Eastit\Darwin\CommonBundle\Tests\Util;
+namespace HappyR\SlugifyBundle\Tests\Util;
 
 use HappyR\SlugifyBundle\Services\SlugifyService;
 

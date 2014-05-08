@@ -9,19 +9,20 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         codecoverage= "true"
-         bootstrap="Tests/bootstrap.php"
+         codecoverage="true"
+         bootstrap="./vendor/autoload.php"
         >
 
-    <formatter type="clover" usefile="false" />
+    <formatter type="clover" usefile="false"/>
     <testsuites>
-        <testsuite name="HappyR Slugify Bundle Test Suite">
+        <testsuite name="Bundle Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
 
     <listeners>
-        <listener class="\Mockery\Adapter\Phpunit\TestListener" file="vendor/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php">
+        <listener class="\Mockery\Adapter\Phpunit\TestListener"
+                  file="vendor/mockery/mockery/library/Mockery/Adapter/Phpunit/TestListener.php">
         </listener>
     </listeners>
 
@@ -38,6 +39,11 @@
         </blacklist>
     </filter>
 
+    <groups>
+        <exclude>
+            <group>live</group>
+        </exclude>
+    </groups>
 
     <logging>
         <log type="coverage-clover" target="build/logs/phpunit.coverage.xml"/>
