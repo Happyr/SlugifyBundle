@@ -3,9 +3,7 @@
 namespace HappyR\SlugifyBundle\Tests\Util;
 
 use HappyR\SlugifyBundle\Services\SlugifyService;
-
 use Mockery as m;
-
 
 /**
  * Class SlugifyServiceTest
